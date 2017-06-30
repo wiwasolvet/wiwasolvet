@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WER Layout</title>
+    <style>
+        #div2 {
+            position:absolute;
+            top: 14.31cm;
+            left: 10.53cm;
+            color: white;
+        }
+        img.covers{
+            width: 19.81cm;
+            height: 25.66cm;
+            display: inline;
+        }
+        div.breaksection{
+            page-break-after:always;
+        }
+        div.floaty{
+            float:left;
+            margin:0px 20px 10px 10px;
+        }
+
+        img.windrose {
+            width:175px;
+            height:175px;
+        }
+
+        img.annualrose {
+            width:500px;
+            height:400px;
+        }
+        table.twelve {
+            margin: 0 25px 0 25px;
+        }
+        table.twelver {
+            margin: 0 70px 0 70px;
+        }
+        img.windhistogram {
+            width:204px;
+            height:151px;
+        }
+
+        img.annualhist {
+            width:600px;
+            height:450px;
+        }
+
+        img.climatemeans {
+            width:500px;
+            height:330px;
+            margin: 5px 5px 5px 5px;
+            display:block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        img.monthdevia {
+            width: 600px;
+            height: 305px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        p.caption{
+            text-align: center;
+        }
+        #contact{
+            color:white;
+        }
+        table.alltables tr:nth-child(even){
+            background-color:#f2f2f2
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+</body>
+</html>

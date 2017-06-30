@@ -1,0 +1,291 @@
+{% extends "werlayout.html" %}
+{% block content %}
+<div class="breaksection">
+<section class="frontcover">
+    <div id="containerFront" style="position: relative;">
+        <div id="div1" style="position: absolute; top:0; left:0;">
+            <img class="covers" src="file:///home/wiwasol/prospectingmm/FrontOfReportWithInputsNoBorder_001.jpg">
+        </div>
+        <div id="div2" style="position:absolute; top: 14.31cm; left: 10.53cm; color:white;">
+            <p>Prospecting Met Mast: {{pmmreport}}</p>
+            <p>Site: {{location}}</p>
+            <p>Date: {{monthyear}}</p>
+        </div>
+    </div>
+</section>
+</div>
+<div class="breaksection">
+    <h2>Summary Wind Statistics</h2>
+    <p>The tables outlined on this page comprise the comprehensive statistics and information for the specified site. All data are based on the time period from {{ startyear }} to {{ endyear }}. Please note that for some sites a total of 60 years of hourly statistics are available for the specified site upon request.</p>
+    <h2>Wind Speeds</h2>
+    <table width="486" border="1">
+        <tr>
+            <td width="324">Mean Wind Speed (Long term)</td>
+            <td width="146">{{longwindspeed}} m/s &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        </tr>
+        <tr>
+            <td>Mean Wind Speed (W90 Reduction)</td>
+            <td>{{windspeedw90}} m/s</td>
+        </tr>
+        <tr>
+            <td>Median Wind Speed</td>
+            <td>{{windspeedmedian}} m/s</td>
+        </tr>
+        <tr>
+            <td><p>Maximum hourly averaged wind speed<br>in the data series requested</p></td>
+            <td>{{fiftyyeargust}} m/s</td>
+        </tr>
+        <tr>
+            <td>Elevation</td>
+            <td>{{ elevation }}</td>
+        </tr>
+        <tr>
+            <td>Hub Height</td>
+            <td>{{ hubheight }}</td>
+        </tr>
+        <tr>
+            <td>Land Surface Roughness</td>
+            <td>{{ surfaceroughness }}</td>
+        </tr>
+    </table>
+
+    <div id="explain1">
+    <p>An explanation of the terms and values in the above table is as follows:</p>
+    <p>Mean wind speed is the estimated long term average wind speed based on the chosen time period. As the sample size increases (i.e. time period), the precision of our estimate increases within similar long term climate patterns.</p>
+    <p>Mean Wind Speed (W90 Reduction) is a conservative estimate of the 90th percentile of the mean wind speed for the site. The difference from the Mean Wind Speed (Long Term) calculates a revised mean wind speed with a 90% confidence of being surpassed. The W90 statistics are the 90th percentile of the errors assuming a normal distribution of the wind speeds.</p>
+    <p>It is important to note that the W90 data are not comparable with figures derived from the variability in hourly mean wind speeds. These should be considered separately.</p>
+    </div>
+</div>
+<div class="breaksection">
+    <h2>Wind Speed P50:P90:P99 Exceedance Probability</h2>
+    <p>Figure 1 illustrates the probability (%) that the wind speed exceeds 5 m/s, 10 m/s and 15 m/s in a given month. The variability above and below these thresholds assist with understanding the natural fluctuations of the wind resource over the year. These monthly variations are derived from the wind frequency analysis.</p>
+    <img class="monthdevia" src={{p50}} alt="" width="700" height="375">
+    <h2>Daily Variation in Average Hourly Wind Speeds</h2>
+    <p>Based on the data from {{ startyear }} to {{ endyear }}, Figure 2 displays the average wind speed (m/s) for each hour of the day at the chosen site.</p>
+    <img class="monthdevia" src={{dailywind}} alt="" width="700" height="305">
+</div>
+<div class="breaksection">
+    <h2>Whole-year and Monthly Wind Roses</h2>
+    <p>A wind rose shows the long term frequency of winds blowing from particular directions over a specified period. The full-year wind speed and direction distribution for the site is represented by the wind rose shown in Figure 3. For a monthly breakdown, refer to Figure 4 in the following section of this report.</p>
+    <p>The wind speeds are represented by the colours (refer to the legend). The percentage of the time wind is blowing from each direction is represented by the length of the radial shells.</p>
+    <p><img class="annualrose" src={{annualrose}} alt=""></p>
+</div>
+<div class="breaksection">
+    <h2>Monthly Wind Roses</h2>
+    <p>As noted, Figure 4 displays the wind roses on a month by month basis. The structure is the same, however, the long term monthly roses give a clearer indication of the expected wind frequencies during different times of the year.</p>
+    <table class="twelver" width="600" border="1">
+        {% for i in range(4) %}
+        <tr>
+            {% for k in range(3) %}
+            <td width="175"><img class="windrose" src={{rose_month[i][k]}} alt=""></td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    <p class="caption">Figure 4: Long term monthly windroses</p>
+</div>
+<div class="breaksection">
+<h2>Wind Frequency Distribution</h2>
+<p>Table 1 shows the wind frequency analysis for the complete time period, using 30{{'&deg;'|safe}} direction sectors and 1 m/s wind speed bins. The wind frequency analysis for {{ startyear }} onwards can also be provided as a CSV file showing the data for each month of the year.</p>
+<table class="alltables" width="775" border="1">
+    <tr>
+        <td><div style="width: 75px;"></div></td>
+        <td>360</td>
+        <td>330</td>
+        <td>300</td>
+        <td>270</td>
+        <td>240</td>
+        <td>210</td>
+        <td>180</td>
+        <td>150</td>
+        <td>120</td>
+        <td>90</td>
+        <td>60</td>
+        <td>30</td>
+        <td><div style="width: 65px;"></div></td>
+    </tr>
+    <tr>
+        <td>&nbsp;</td>
+        <td>-0</td>
+        <td>-30</td>
+        <td>-60</td>
+        <td>-90</td>
+        <td>-120</td>
+        <td>-150</td>
+        <td>-180</td>
+        <td>-210</td>
+        <td>-240</td>
+        <td>-270</td>
+        <td>-300</td>
+        <td>-330</td>
+        <td>Total</td>
+    </tr>
+    {% for i in range(25) %}
+    <tr>
+        <td>{{metersclass[i]|safe}}</td>
+        {% for k in range(12) %}
+            <td>{{meterspercent[i][k]}}</td>
+        {% endfor %}
+            <td>{{meterstotal[i]}}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <td>Total</td>
+    {% for m in range(12) %}
+        <td>{{sectorstotal[m]}}</td>
+    {% endfor %}
+        <td>100%</td>
+    </tr>
+</table>
+    <p>Table 1: Wind Frequency Distribution based on wind speed classes and broken into sectors.</p>
+</div>
+<div class="breaksection">
+    <h2>Wind Speed Histograms and Weibull Statistics</h2>
+    <p>It is important to represent the irregularity in wind frequency distribution. Therefore, wind histograms have been used to best represent the asymmetric relationship between wind and time. Figure 5 shows this analysis for wind speed, regardless of the wind direction.</p>
+    <p>The frequency with which each wind speed category (x-axis) occurs is represented by the blue bars on the graph. The optimum Weibull curve has been fitted to the hourly data in the calculations, represented with the shape and scale parameters.</p>
+    <p>Shape parameter ( {{'&#945;'|safe}} ) - determines the shape of the curve</p>
+    <p>Scale parameter ( {{'&#955;'|safe}} ) - magnitude of peak frequency wind speed class</p>
+    <img class="annualhist" src={{annualhist}} alt="">
+    <p class="caption">Figure 5: Annual 360{{'&deg;'|safe}}, wind speed histogram with Weibull parameters.</p>
+</div>
+<div class="breaksection">
+    <h2>30{{'&deg;'|safe}} sector, annual wind frequency analysis</h2>
+    <p>Displayed in Figure 6, the wind frequency analysis is broken down by direction (30{{'&deg;'|safe}} sectors). These directional wind speed histograms are analyzed with fitted Weibull parameters. This is helpful in determining optimal placement and spacing of turbines on larger wind farms, or planning to prevent wind shadow from obstacles.</p>
+
+    <table class="twelve" width="486" border="1">
+        {% for i in range(4) %}
+        <tr>
+            {% for k in range(3) %}
+            <td width="204"><img class="windhistogram" src={{hist_sector[i][k]}} alt=""></td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    <p class="caption">Figure 6: Whole-year, directional wind speed histograms with Weibull parameters.</p>
+</div>
+<div class="breaksection">
+    <h2>Monthly wind frequency analysis</h2>
+    <p>Displayed in Figure 7, the wind frequency analysis is broken down by months. These monthly wind speed histograms are analyzed with fitted Weibull parameters. This is a great way to determine how much energy may be produced each month with the turbine power curve(s).</p>
+
+    <table class="twelve" width="486" border="1">
+        {% for i in range(4) %}
+        <tr>
+            {% for k in range(3) %}
+            <td width="204"><img class="windhistogram" src={{hist_month[i][k]}} alt=""></td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    <p class="caption">Figure 7: Monthly wind speed histograms with Weibull parameters.</p>
+</div>
+<div class="breaksection">
+    <h2>Long Term Climate Variability</h2>
+    <p>Figure 8 below demonstrates the year-to-year variability for the chosen site. This will assist in understanding the mean wind speed from a long-term climatological variability perspective. The plot displays the annual mean wind speeds over {{ period }} years as horizontal marks. The blue box encompasses 50% of the years, with a black horizontal line marking the median. Blue Whiskers indicate the 5th and 95th Percentiles of the dataset. All values are presented relative to the {{ period }}-year mean wind speed for the region.</p>
+    <p><img class="climatemeans" src="{{climatemeans}}" alt="" width="520" height="400"></p>
+    <p>Note: While the information within the graph is an important indicator of the scale of climate variability for the site, it must not be misinterpreted as a forecast of future variability at the site.</p>
+</div>
+<div class="breaksection">
+    <h2>Monthly and Annual Mean Wind Speed Statistics</h2>
+    <p>Figure 9 illustrates the monthly mean wind speed with the Standard Deviation to show variation around the mean. Standard error is the standard deviation divided by square root of the sample size (1 to 60 years) away on either side of the mean (assuming normal distribution). Table 2 gives the mean wind speeds (monthly and annual), as well as the standard deviations. These values were derived from hourly data. A physical Met Mast typically collects data for 1-2 years before on site characteristics/turbulence are known with high certainty, with this in mind, a more complete data set demonstrates decadal climate variations and scales to fit the regional data points.</p>
+    <img class="monthdevia" src="{{monthdevia}}" alt="" width="700" height="305">
+    <table class="alltables" width="700" border="1">
+        <tr>
+            <td width="100">Month &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td width="150">Mean Wind Speed(m/s)</td>
+            <td width="150">Standard Deviation(m/s)</td>
+            <td width="150">Standard Error (m/s)</td>
+        </tr>
+        {% for i in range(12) %}
+        <tr>
+            <td width="100">{{monthsA[i]}}</td>
+            <td width="150">{{meanws[i]}}</td>
+            <td width="150">{{stdevia[i]}}</td>
+            <td width="150">{{stderr[i]}}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td width="100">{{monthsA[12]}}</td>
+            <td width="150">{{meanwsA}}</td>
+            <td width="150">{{stdeviaA}}</td>
+            <td width="150">{{stderrA}}</td>
+        </tr>
+    </table>
+    <p class="caption">Table 2: Monthly and annual mean wind speeds and hourly standard deviations</p>
+    <p>{{summonth}}</p>
+    <p>{{sumwind}}</p>
+</div>
+<div class="breaksection">
+    <h1 id="contact" color="white">Contact Information</h1>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <table width="574" border="1">
+        <tr>
+            <td width="271"><strong>Founder</strong></td>
+            <td width="200">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp</td>
+            <td width="229"><strong>Credits: Sales &amp; Research:</strong></td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td width="200">&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>Jacob Thompson, MSc, BASc</td>
+            <td width="200">&nbsp;</td>
+            <td>Ray Carrigan, MBA, BEng</td>
+        </tr>
+        <tr>
+            <td>#: 1-(902)-414-9512</td>
+            <td width="200">&nbsp;</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>E: <a href="mailto:jacob.thompson@wiwasolvet.ca">jacob.thompson@wiwasovlet.ca</a></td>
+            <td width="200">&nbsp;</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td width="200">&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>Wiwasolvet Total Primary Energy Solutions</td>
+            <td width="200">&nbsp;</td>
+            <td>Ian Poirier, BCom</td>
+        </tr>
+        <tr>
+            <td>3 Green Rd,</td>
+            <td width="200">&nbsp;</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Dartmouth, NS B3A 1N9</td>
+            <td width="200">&nbsp;</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Canada</td>
+            <td width="200">&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td><a href="https://www.wiwasolvet.ca">www.wiwasolvet.ca</a></td>
+            <td width="200">&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
+    <p>{{title}} <br> Updated: September 2017 <br>{{'&copy;'|safe}} Wiwasolvet Total Primary Energy Solutions</p>
+</div>
+{% endblock %}

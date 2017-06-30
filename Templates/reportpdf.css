@@ -1,0 +1,85 @@
+@page :first { size: letter; margin: 0.98cm 0.59cm 0.98cm 0.59cm  }
+@page {
+    size: letter;
+    margin: 2cm 2cm 1.5cm 2cm;
+}
+@media print {
+    img.covers{
+        width: 19.81cm;
+        height: 25.66cm;
+    }
+    #div2 {
+        position:absolute;
+        top: 14.31cm;
+        left: 10.53cm;
+        color: white;
+    }
+    div.breaksection {
+        page-break-after:always;
+    }
+
+    img.windrose {
+        width:175px;
+        height:175px;
+    }
+
+    img.annualrose {
+        width: 450px;
+        height: 450px;
+        display:block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    table.twelve {
+        margin: 0 25px 0 25px;
+    }
+    table.twelver {
+        margin: 0 70px 0 70px;
+    }
+    img.windhistogram {
+        width:204px;
+        height:151px;
+    }
+
+    img.annualhist {
+        width: 500px;
+        height: 400px;
+        display:block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    img.climatemeans{
+        width:500px;
+        height:330px;
+        margin: 5px 5px 5px 5px;
+        display:block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    img.monthdevia {
+        width: 600px;
+        height: 305px;
+        display:block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    p.caption{
+        text-align: center;
+    }
+
+    table.alltables tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    #contact {
+        color:white;
+    }
+    p {
+        font: 12pt/1.25 Times New Roman;
+    }
+    table, th, td {
+        font: 10pt/1.1 Times New Roman;
+    }
+    h1, h2, h3, h4 { font-family: inherit !important }
+}
