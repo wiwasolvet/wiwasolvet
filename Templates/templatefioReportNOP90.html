@@ -1,10 +1,10 @@
-{% extends "werlayout.html" %}
+{% extends "Templates/werlayout.html" %}
 {% block content %}
 <div class="breaksection">
 <section class="frontcover">
     <div id="containerFront" style="position: relative;">
         <div id="div1" style="position: absolute; top:0; left:0;">
-            <img class="covers" src="file:///home/wiwasol/prospectingmm/FrontOfReportWithInputsNoBorder_001.jpg">
+            <img class="covers" src={{frontcover}} alt="">
         </div>
         <div id="div2" style="position:absolute; top: 14.31cm; left: 10.53cm; color:white;">
             <p>Prospecting Met Mast: {{pmmreport}}</p>
@@ -251,7 +251,7 @@
             <td></td>
         </tr>
         <tr>
-            <td>E: <a href="mailto:jacob.thompson@wiwasolvet.ca">jacob.thompson@wiwasovlet.ca</a></td>
+            <td>E: <a href="mailto:jacob.thompson@wiwasolvet.ca">jacob.thompson@wiwasolvet.ca</a></td>
             <td width="200">&nbsp;</td>
             <td></td>
         </tr>
@@ -286,6 +286,6 @@
             <td>&nbsp;</td>
         </tr>
     </table>
-    <p>{{title}} <br> Updated: September 2017 <br>{{'&copy;'|safe}} Wiwasolvet Total Primary Energy Solutions</p>
+    <p>{{version}} <br> Updated: December 2018 <br>{{'&copy;'|safe}} Wiwasolvet Total Primary Energy Solutions</p>
 </div>
 {% endblock %}

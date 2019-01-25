@@ -1,6 +1,13 @@
-def new_axesRAH(wd, ws):
-    import matplotlib.pyplot as plt
-    from windrose import WindroseAxes
+import matplotlib
+matplotlib.use('agg')
+import matplotlib.pyplot as plt
+from windrose import WindroseAxes
+from scipy.stats import weibull_min, weibull_max
+
+
+def new_axesRAH(wd, ws, fontLine=None):
+    #import matplotlib.pyplot as plt
+    #from windrose import WindroseAxes
 
     fig = plt.figure(figsize=(10, 8), dpi=120, facecolor='w', edgecolor='w')
     binsH=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
@@ -10,24 +17,25 @@ def new_axesRAH(wd, ws):
     return ax
 
 
-def new_axesHA(dataFull):
+def new_axesHA(dataFull, colourb1=None, formatter=None, file_path=None):
     """
     Annual Wind Histogram
     """
-    import matplotlib.pyplot as plt
+    #import matplotlib.pyplot as plt
 
     fig = plt.figure(figsize=(8, 6), dpi=120, facecolor='w', edgecolor='w')
     binsH=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
     ax = dataFull["correctedwindspeed"].hist(bins=binsH, facecolor=colourb1, normed=True)
-    shapeHA, locHA, scaleHA = weibull_min.fit(dataFull["correctedwindspeed"], floc=2)
+    shapeHA, locHA, scaleHA = weibull_min.fit(dataFull["correctedwindspeed"])
     plt.text(15, .18, r'$mean = %3.2f$' % dataFull["correctedwindspeed"].mean(), weight=700, fontsize=28)
     plt.text(15, .16, r'$\alpha = %3.2f$' % shapeHA, weight=700, fontsize=28)
     plt.text(15, .14, r'$\lambda = %3.2f$' % scaleHA, weight=700, fontsize=28)
     plt.axis([0, 25, 0, 0.20])
     plt.grid(True)
-    plt.gca().yaxis.set_major_formatter(formatter1)
+    plt.gca().yaxis.set_major_formatter(formatter)
     plt.tight_layout()
     # Referencing which image name this function creates
     # plt.savefig('/home/wiwasol/prospectingmm/WindHistogram_temp8888_img.png')
+    plt.savefig(file_path + 'WindHistogram_temp8888_img.png')
     # annualHist = "file:///home/wiwasol/prospectingmm/WindHistogram_temp8888_img.png"
     return ax

@@ -1,7 +1,6 @@
 # Wiwasolvet Total Primary Energy Solutions
 <h3>Prospecting Met Masts: What are they?</h3>
 
-<h3>WARNING: Major refactor work in progress. Under construction!</h3>
 <p>Presently this refactor does not function. Will be up and operational in early 2018! <br/>Sorry for the inconvenience.</p>
 <h4>Intent</h4>
 <p>This documentation is intended to help others install this free open source software, along with dependencies and get you started creating your own Prospecting Met Masts (PMM) reports.</p>

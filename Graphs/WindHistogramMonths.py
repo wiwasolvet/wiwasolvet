@@ -1,16 +1,21 @@
-def new_axesH_Mon(dataMonth, MonSec, xaxis2i, i, textMon1, formatter1=None, colourb1=None):
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import weibull_min  # , weibull_max
+
+
+def new_axesH_Mon(dataMonth, MonSec, xaxis2i, i, textMon1, formatter=None, colourb1=None, file_path=None):
     """
     Wind Histograms Months
     """
 
-    import numpy as np
-    import matplotlib.pyplot as plt
-    from scipy.stats import weibull_min  # , weibull_max
+    #import numpy as np
+    #import matplotlib.pyplot as plt
+    #from scipy.stats import weibull_min  # , weibull_max
 
     fig = plt.figure(figsize=(4.34, 3.22), dpi=100, facecolor='w', edgecolor='w')
     binsH=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
 
-    shapeMon, locMon, scaleMon = weibull_min.fit(dataMonth, floc=2)
+    shapeMon, locMon, scaleMon = weibull_min.fit(dataMonth)
     textMon1[i] = plt.text(15, .18, r'$mean = %3.2f$' % dataMonth.mean(), weight=700, fontsize=15)
     plt.text(15, .15, r'$\alpha = %3.2f$' % shapeMon, weight=700, fontsize=15)
     plt.text(15, .12, r'$\lambda = %3.2f$' % scaleMon, weight=700, fontsize=15)
@@ -27,10 +32,11 @@ def new_axesH_Mon(dataMonth, MonSec, xaxis2i, i, textMon1, formatter1=None, colo
 
     plt.axis([0, 25, 0, 0.30])
     plt.grid(True)
-    plt.gca().yaxis.set_major_formatter(formatter1)
+    plt.gca().yaxis.set_major_formatter(formatter)
     plt.tight_layout()
 
-    plt.savefig('/home/wiwasol/prospectingmm/weibull_' + xaxis2i + '_temp999_img.png')
+    #plt.savefig(file_path + 'weibull_' + xaxis2i + '_temp999_img.png')
+    plt.savefig(file_path + 'weibull_' + xaxis2i + '_temp999_img.png')
     # hist_monthH = '/home/wiwasol/prospectingmm/weibull_' + xaxis2[i] + '_temp999_img.png'
     plt.clf()
     plt.close()

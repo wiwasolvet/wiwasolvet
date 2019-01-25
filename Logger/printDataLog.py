@@ -38,7 +38,7 @@ def printdata2(dataFull):
     print(dataFull["windd"].std())
 
     fig = plt.figure(figsize=(4.34, 3.22), dpi=100, facecolor='w', edgecolor='w')
-    Graphs.WindRoseMonths.new_axesR(dataFull["windd"],dataFull["correctedwindspeed"])
+    Graphs.WindRoseMonths.new_axes_r(dataFull["windd"], dataFull["correctedwindspeed"])
     plt.savefig('/home/wiwasol/prospectingmm/WindRose_temp8888_img.png')
     plt.clf()
     plt.close()
