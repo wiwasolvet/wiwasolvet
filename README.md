@@ -1,7 +1,7 @@
 # Wiwasolvet Total Primary Energy Solutions
 <h3>Prospecting Met Masts: What are they?</h3>
 
-<p>Note: Presently this repo will generate the Wind Energy Report from a local/remote database. Will update the code to get API weather data retrieval and database table creation working.</p>
+<p>Note: Presently this repo will generate the Wind Energy Report from a local/remote database. I will update the code to get API weather data retrieval and database table creation working.</p>
 <h4>Intent</h4>
 <p>This documentation is intended to help others install this free open source software, along with dependencies and get you started creating your own Prospecting Met Masts (PMM) reports.</p>
 
@@ -46,6 +46,22 @@
 </ul>
 
 <p>Community engagement is encouraged and I hope that people develop their own features, that Wiwasolvet may not have the time or capacity to develop in house.</p>
+
+<p><b>Installation instructions:</b><br/>
+So far I have confirmed the installation works on Centos 6 and 7 Linux distributions.
+The easiest way is using the environment_base.yml file to load all the packages. It should be noted that if you are freshly installing
+Python 3.6.2 in the Miniconda3 (Anaconda) environment that you might need to update pip to get a clean install.<br />
+<ul>
+    <li>Installing Miniconda3 on Centos, I used the following script Miniconda3-4.3.21-Linux-x86_64.sh</li>
+    <li>Installing on Windows 7 through Windows 10 I used Miniconda3-4.3.21-Windows-x86_64.exe
+    <ul>
+        <li>GTK3 is required to get Weasyprint working on Windows otherwise Cairo errors will be present, i.e. no images will populate in the PDF.</li>
+        <li>I strongly recommend following the instructions on Weasyprint installations and see any closed bug reports for related incorrect installation errors.</li>
+        <li>Note: I will update this section with hyperlinks and clearer step based instructions.</li>
+     </ul>
+     </li>
+</ul>
+</p>
 
 <p><strong>Author: Jacob Lawrence Thompson MSc. BASc.</strong><br/>
 <a href="https://www.wiwasolvet.ca">www.wiwasolvet.ca</a></p>
