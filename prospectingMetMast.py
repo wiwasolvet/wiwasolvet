@@ -257,7 +257,7 @@ def weib(x, *p):
 def easy_print_pdf(data_full, startdate='1985-01-01', enddate='2017-12-31'):
     # Datetime objects must be in consistent format
     data_full['time'] = pd.to_datetime(data_full['time'], format='%m/%d/%Y %H:%M')
-    # dataFull['time'] = pd.to_datetime(dataFull['time'], format='%d/%m/%Y %H:%M')
+    #data_full['time'] = pd.to_datetime(data_full['time'], format='%d/%m/%Y %H:%M')
     # dataFull['time'] = pd.to_datetime(dataFull['time'])
     data_full.set_index('time', inplace=True)
     # dataFull.dropna()
@@ -266,9 +266,9 @@ def easy_print_pdf(data_full, startdate='1985-01-01', enddate='2017-12-31'):
     # formatter1 = FuncFormatter(to_percent1)
 
     fig = plt.figure(figsize=(4.34, 3.22), dpi=100, facecolor='w', edgecolor='w')
-    Graphs.WindRoseAnnual.new_axes_ra(data_full["windd"], data_full["correctedwindspeed"], font_line=fontLine)
+    ax1 = Graphs.WindRoseAnnual.new_axes_ra(data_full["windd"], data_full["correctedwindspeed"], font_line=fontLine)
     plt.savefig(file_path + 'WindRose_temp8888_img.png')
-    annual_rose = "file://" + file_path + "WindRose_temp8888_img.png"
+    annual_rose = "file://" + output_file_path + "WindRose_temp8888_img.png"
     plt.clf()
     plt.close()
 
@@ -276,7 +276,7 @@ def easy_print_pdf(data_full, startdate='1985-01-01', enddate='2017-12-31'):
     data_wind.dropna(axis=0, how='any', subset=['winds', 'windd', 'correctedwindspeed'], inplace=True)
     Graphs.WindHistogramAnnual.new_axesHA(data_wind, colourb1=colourb1, formatter=formatter1, file_path=file_path)
     # plt.savefig(file_path + 'WindHistogram_temp8888_img.png')
-    annual_hist = "file://" + file_path + "WindHistogram_temp8888_img.png"
+    annual_hist = "file://" + output_file_path + "WindHistogram_temp8888_img.png"
     plt.clf()
     plt.close()
 
@@ -287,7 +287,7 @@ def easy_print_pdf(data_full, startdate='1985-01-01', enddate='2017-12-31'):
     text_mon1 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
     for iMon, group in enumerate(data_month_group, 0):
-        Graphs.WindRoseMonths.new_axes_r(group[1].windd, group[1].correctedwindspeed, xaxis_mon[iMon], font=font)
+        ax2 = Graphs.WindRoseMonths.new_axes_r(group[1].windd, group[1].correctedwindspeed, xaxis_mon[iMon], font=font)
         plt.savefig(file_path + 'weiWRose_' + xaxis2[iMon] + '_temp888_img.png')
 
         # add folder for each new report and image files?! Good way to keep records, and check if errors crop up
@@ -347,9 +347,9 @@ def easy_print_pdf(data_full, startdate='1985-01-01', enddate='2017-12-31'):
     hist_sector_h = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
     for i in range(4):
         for j in range(3):
-            rose_month_r[i][j] = "file://" + file_path + 'weiWRose_' + xaxis2[count] + '_temp888_img.png'
-            hist_month_h[i][j] = "file://" + file_path + 'weibull_' + xaxis2[count] + '_temp999_img.png'
-            hist_sector_h[i][j] = "file://" + file_path + 'weibullSEC_' + xaxis2[count] + '_temp999_img.png'
+            rose_month_r[i][j] = "file://" + output_file_path + 'weiWRose_' + xaxis2[count] + '_temp888_img.png'
+            hist_month_h[i][j] = "file://" + output_file_path + 'weibull_' + xaxis2[count] + '_temp999_img.png'
+            hist_sector_h[i][j] = "file://" + output_file_path + 'weibullSEC_' + xaxis2[count] + '_temp999_img.png'
             count = count + 1
 
     # Climate Means Fig 8 ===============================================================
@@ -358,7 +358,7 @@ def easy_print_pdf(data_full, startdate='1985-01-01', enddate='2017-12-31'):
     fig = plt.figure(figsize=(7, 4.17), dpi=120, facecolor='w', edgecolor='w')
     Graphs.ClimateMeansBoxPlot.meanBoxplot(data_full, formatter4=formatter4, colourb1=colourb1)
     plt.savefig(file_path + 'box1_temp444_img.png')
-    box1 = "file://" + file_path + "box1_temp444_img.png"
+    box1 = "file://" + output_file_path + "box1_temp444_img.png"
 
     # Diurnal Fig 2 ===============================================================
     diurnalm = data_full['correctedwindspeed'].groupby(lambda x: x.hour).mean().as_matrix()
@@ -396,7 +396,7 @@ def easy_print_pdf(data_full, startdate='1985-01-01', enddate='2017-12-31'):
     plt.xlabel('Figure 2: Daily Variation in Average Hourly Wind Speeds')
     plt.tight_layout()
     plt.savefig(file_path + 'line4_temp555_img.png')
-    diurnal = "file://" + file_path + "line4_temp555_img.png"
+    diurnal = "file://" + output_file_path + "line4_temp555_img.png"
 
     # Monthly Mean, Std, StdErr Fig 9 and Table 2 ===============================================================
     mean_year_m = data_full['correctedwindspeed'].groupby(lambda x: x.year).mean()
@@ -450,7 +450,7 @@ def easy_print_pdf(data_full, startdate='1985-01-01', enddate='2017-12-31'):
     plt.xlabel('Figure 9: Monthly mean wind speed with 16th and 84th percentiles', fontdict=fontLine)
     plt.tight_layout()
     plt.savefig(file_path + 'line2_temp555_img.png')
-    line2 = "file://" + file_path + "line2_temp555_img.png"
+    line2 = "file://" + output_file_path + "line2_temp555_img.png"
 
     # P50:P90 Fig 1 ===============================================================
     p50breakdown = Graphs.WindHistogramMonths.new_axesH_MonCDF(data_month_group, xaxis_mon)
@@ -506,7 +506,7 @@ def easy_print_pdf(data_full, startdate='1985-01-01', enddate='2017-12-31'):
     plt.gca().yaxis.set_major_formatter(formatter3)
     plt.tight_layout()
     plt.savefig(file_path + 'line3_temp555_img.png')
-    pfifty = "file://" + file_path + "line3_temp555_img.png"
+    pfifty = "file://" + output_file_path + "line3_temp555_img.png"
 
     # Wind Frequency Distribution TABLE===========================
     metersclass_o = []
@@ -637,10 +637,9 @@ def easy_print_pdf(data_full, startdate='1985-01-01', enddate='2017-12-31'):
     j2_env = Environment(loader=FileSystemLoader(THIS_DIR),
                          trim_blocks=True)
 
-    template = j2_env.get_template("Templates/" + 'templatefioReportNOP90.html')
+    template = j2_env.get_template(env_variables["LOCAL_TEMP_OUTPUT"] + 'templatefioReportNOP90.html')
     template_vars = {"version": "Prospecting Met Mast v1.12",
-                     "frontcover": str("file://" + root_file_path +
-                                       "Templates/FrontOfReportWithInputsNoBorder_001.jpg"),
+                     "frontcover": "file://" + output_file_path + "FrontOfReportWithInputsNoBorder_001.jpg",
                      "pmmreport": input_variables["PMM_REPORT"],
                      "location": input_variables["LOCATION"],
                      "monthyear": input_variables["MONTH_YEAR"],
@@ -678,8 +677,8 @@ def easy_print_pdf(data_full, startdate='1985-01-01', enddate='2017-12-31'):
                      "stdeviaA": round(stdevia_ao*1000)/1000,
                      "stderrA": round(stderr_ao*100)/100}
     html_out = template.render(template_vars)
-    HTML(string=html_out).write_pdf(root_file_path + 'wiwasolvet' + input_variables["OUTPUT_FILE_NAME"] + '.pdf',
-                                    stylesheets=[root_file_path + "Templates/reportpdf.css"])
+    HTML(string=html_out).write_pdf(file_path + 'wiwasolvet' + input_variables["OUTPUT_FILE_NAME"] + '.pdf',
+                                    stylesheets=[file_path + "reportpdf.css"])
 
 
 if __name__ == '__main__':
@@ -697,9 +696,11 @@ if __name__ == '__main__':
 
     file_path = ""
     root_file_path = ""
+    output_file_path = ""
     if env_variables["LOCAL_FLAG"] == "True":
-        file_path = env_variables["LOCAL_ROOT"] + env_variables["LOCAL_TEMP_OUTPUT"]
-        root_file_path = env_variables["LOCAL_ROOT"]
+        file_path = env_variables["LOCAL_SAVE_ROOT"] + env_variables["LOCAL_TEMP_OUTPUT"]
+        root_file_path = env_variables["LOCAL_SAVE_ROOT"]
+        output_file_path = env_variables["LOCAL_WINDOWS_OUTPUT"]
     else:
         file_path = env_variables["REMOTE_ROOT"] + env_variables["REMOTE_TEMP_OUTPUT"]
         root_file_path = env_variables["REMOTE_ROOT"]
