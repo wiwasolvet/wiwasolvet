@@ -6,8 +6,10 @@
 # We now assume we have a file in the same dir as this one called
 # test_template.html
 #
-# Note: Will remove excess import statements, this was from a major refactoring from a single Python file to broken down into main functional tasks.
-# Note: Work in Progess, still refactoring! The commented out import order below causes a cairo error and doesn't make PDF.
+# Note: Will remove excess import statements, this was from a major refactoring from a single Python file to broken
+# down into main functional tasks.
+# Note: Work in Progess, still refactoring! The commented out import order below causes a cairo error and
+# doesn't make PDF.
 
 
 """
@@ -637,9 +639,10 @@ def easy_print_pdf(data_full, startdate='1985-01-01', enddate='2017-12-31'):
     j2_env = Environment(loader=FileSystemLoader(THIS_DIR),
                          trim_blocks=True)
 
-    template = j2_env.get_template(env_variables["LOCAL_TEMP_OUTPUT"] + 'templatefioReportNOP90.html')
+    template = j2_env.get_template('Templates/templatefioReportNOP90.html')
     template_vars = {"version": "Prospecting Met Mast v1.12",
-                     "frontcover": "file://" + output_file_path + "FrontOfReportWithInputsNoBorder_001.jpg",
+                     "frontcover": "file://" + root_front_cover_path +
+                                   "Templates/FrontOfReportWithInputsNoBorder_001.jpg",
                      "pmmreport": input_variables["PMM_REPORT"],
                      "location": input_variables["LOCATION"],
                      "monthyear": input_variables["MONTH_YEAR"],
@@ -678,7 +681,7 @@ def easy_print_pdf(data_full, startdate='1985-01-01', enddate='2017-12-31'):
                      "stderrA": round(stderr_ao*100)/100}
     html_out = template.render(template_vars)
     HTML(string=html_out).write_pdf(file_path + 'wiwasolvet' + input_variables["OUTPUT_FILE_NAME"] + '.pdf',
-                                    stylesheets=[file_path + "reportpdf.css"])
+                                    stylesheets=[root_file_path + "Templates/reportpdf.css"])
 
 
 if __name__ == '__main__':
@@ -697,13 +700,17 @@ if __name__ == '__main__':
     file_path = ""
     root_file_path = ""
     output_file_path = ""
+    root_front_cover_path = ""
     if env_variables["LOCAL_FLAG"] == "True":
         file_path = env_variables["LOCAL_SAVE_ROOT"] + env_variables["LOCAL_TEMP_OUTPUT"]
         root_file_path = env_variables["LOCAL_SAVE_ROOT"]
-        output_file_path = env_variables["LOCAL_WINDOWS_OUTPUT"]
+        output_file_path = env_variables["LOCAL_WINDOWS_ROOT"] + env_variables["LOCAL_TEMP_OUTPUT"]
+        root_front_cover_path = env_variables["LOCAL_WINDOWS_ROOT"]
     else:
         file_path = env_variables["REMOTE_ROOT"] + env_variables["REMOTE_TEMP_OUTPUT"]
         root_file_path = env_variables["REMOTE_ROOT"]
+        output_file_path = file_path
+        root_front_cover_path = root_file_path
 
     list_input = sys.argv[1:]
     input_file_name = list_input[0]
