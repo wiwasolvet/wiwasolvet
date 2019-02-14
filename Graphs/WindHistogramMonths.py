@@ -20,10 +20,10 @@ def new_axesH_Mon(dataMonth, MonSec, xaxis2i, i, textMon1, formatter=None, colou
     plt.text(15, .15, r'$\alpha = %3.2f$' % shapeMon, weight=700, fontsize=15)
     plt.text(15, .12, r'$\lambda = %3.2f$' % scaleMon, weight=700, fontsize=15)
 
-    ax = dataMonth.hist(bins=binsH,facecolor=colourb1,normed=True)
-    histogramMonth = np.histogram(dataMonth, bins=binsH, range=(0, 100), normed=True)
+    ax = plt.hist(np.clip(dataMonth, binsH[0], binsH[-1]), bins=binsH,facecolor=colourb1,normed=True)
+    histogramMonth = np.histogram(np.clip(dataMonth, binsH[0], binsH[-1]), bins=binsH, range=(0, 100), normed=True)
     print("#####################################################################")
-    print(histogramMonth)
+    print(histogramMonth[0])
     #plt.plot(binsH, 1/(sig[i][j] * np.sqrt(2 * np.pi)) *
     #    np.exp( - (binsH - mean[i][j])**2 / (2 * sig[i][j]**2) ),
     #    linewidth=7, color=colourk1)
@@ -40,7 +40,7 @@ def new_axesH_Mon(dataMonth, MonSec, xaxis2i, i, textMon1, formatter=None, colou
     # hist_monthH = '/home/wiwasol/prospectingmm/weibull_' + xaxis2[i] + '_temp999_img.png'
     plt.clf()
     plt.close()
-    return ax
+    return ax, histogramMonth[0]
 
 
 def get_hist(ax12):

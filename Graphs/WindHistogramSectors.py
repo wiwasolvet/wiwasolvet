@@ -1,3 +1,4 @@
+import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import weibull_min  # , weibull_max
 
@@ -18,7 +19,10 @@ def new_axes_h_sec(data_sec, mon_sec, xaxis2i, i, text_sec4, text_sec5, text_sec
     text_sec5[i] = plt.text(15, .15, r'$\alpha = %3.2f$' % shape_sec[i], weight=700, fontsize=15)
     text_sec6[i] = plt.text(15, .12, r'$\lambda = %3.2f$' % scale_sec[i], weight=700, fontsize=15)
 
-    ax = data_sec.hist(bins=bins_h, facecolor=colourb1, normed=True)
+    ax = plt.hist(np.clip(data_sec, bins_h[0], bins_h[-1]), bins=bins_h, facecolor=colourb1, normed=True)
+    histogramSector = np.histogram(np.clip(data_sec, bins_h[0], bins_h[-1]), bins=bins_h, range=(0, 100), normed=True)
+    print("<<WR_WH################################################################")
+    print(histogramSector[0])
     # plt.plot(bins_h, 1/(sig[i][j] * np.sqrt(2 * np.pi)) *
     #    np.exp( - (bins_h - mean[i][j])**2 / (2 * sig[i][j]**2) ),
     #    linewidth=7, color=colourk1)
@@ -35,4 +39,4 @@ def new_axes_h_sec(data_sec, mon_sec, xaxis2i, i, text_sec4, text_sec5, text_sec
     plt.clf()
     plt.close()
 
-    return ax
+    return ax, histogramSector[0]

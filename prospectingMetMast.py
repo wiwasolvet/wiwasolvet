@@ -87,6 +87,7 @@ from sys import argv
 #from io import StringIO
 ####from forecastio.utils import UnicodeMixin, PropertyUnavailable
 from sqlalchemy import Table, Column, Integer, String, Float, MetaData, ForeignKey
+import csv
 
 
 
@@ -287,6 +288,8 @@ def easy_print_pdf(data_full, startdate='1985-01-01', enddate='2017-12-31'):
 
     data_month_group = data_wind.groupby(lambda x: x.month)
     text_mon1 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    monthly_wind_histograms = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    sector_wind_histograms = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
     for iMon, group in enumerate(data_month_group, 0):
         ax2 = Graphs.WindRoseMonths.new_axes_r(group[1].windd, group[1].correctedwindspeed, xaxis_mon[iMon], font=font)
@@ -294,10 +297,14 @@ def easy_print_pdf(data_full, startdate='1985-01-01', enddate='2017-12-31'):
 
         # add folder for each new report and image files?! Good way to keep records, and check if errors crop up
 
-        Graphs.WindHistogramMonths.new_axesH_Mon(group[1].correctedwindspeed, xaxis_mon[iMon], xaxis2[iMon],
+        ax, monthly_wind_histograms[iMon] = Graphs.WindHistogramMonths.new_axesH_Mon(group[1].correctedwindspeed, xaxis_mon[iMon], xaxis2[iMon],
                                                  iMon, text_mon1, formatter=formatter1, colourb1=colourb1,
                                                  file_path=file_path)
         # plt.savefig(file_path + 'weibull_' + xaxis2[iMon] + '_temp999_img.png')
+
+    wh_columns = np.arange(0, 25, 1)
+    monthly_wh_df = pd.DataFrame(data=monthly_wind_histograms, columns=wh_columns, index=xaxis_mon)
+    monthly_wh_df.to_csv(file_path + "monthly_wind_histograms.csv", float_format="%2.9f")
 
     freq_bins2 = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 360]
     # Was this changed because of a windrose error/update? From 12 to 13 array length/sectors of windrose
@@ -308,7 +315,7 @@ def easy_print_pdf(data_full, startdate='1985-01-01', enddate='2017-12-31'):
     grouped = data_wind[['windd', 'correctedwindspeed', 'Binned']].groupby('Binned')
 
     xaxis_sec = ['30', '60', '90', '120', '150', '180', '210', '240', '270', '300', '330', '360']
-    bins_h = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 50]
+    bins_h = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
     bins_lh = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
     columns_b = ['[0-30]', '[30-60]', '[60-90]', '[90-120]', '[120-150]', '[150-180]',
                  '[180-210]', '[210-240]', '[240-270]', '[270-300]', '[300-330]', '[330-360]']
@@ -336,13 +343,17 @@ def easy_print_pdf(data_full, startdate='1985-01-01', enddate='2017-12-31'):
             except IndexError:
                 print("xaxis_sec")
 
-            Graphs.WindHistogramSectors.new_axes_h_sec(group2[1].correctedwindspeed, xaxis_sec[iSec], xaxis2[iSec],
+            ax, sector_wind_histograms[iSec] = Graphs.WindHistogramSectors.new_axes_h_sec(group2[1].correctedwindspeed, xaxis_sec[iSec], xaxis2[iSec],
                                                        iSec, text_sec4, text_sec5, text_sec6, shape_sec, loc_sec,
                                                        scale_sec, formatter=formatter1, colourb1=colourb1,
                                                        file_path=file_path)
             # plt.savefig(file_path + xaxis2[iSec] + '_temp999_img.png')
         else:
             pass
+
+    sector_wh_df = pd.DataFrame(data=sector_wind_histograms, columns=wh_columns, index=xaxis_sec)
+    sector_wh_df.to_csv(file_path + "sector_wind_histograms.csv", float_format="%2.9f")
+
     count = 0
     rose_month_r = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
     hist_month_h = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
