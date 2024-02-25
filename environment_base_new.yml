@@ -1,0 +1,21 @@
+name: wiwapmm
+channels:
+- conda-forge
+- defaults
+dependencies:
+- jinja2
+- matplotlib
+- numpy
+- pandas
+- pip
+- python
+- scipy
+- pymysql
+- sqlalchemy
+- pip:
+  - python-forecastio
+  - cffi
+  - weasyprint
+  - windrose
+prefix: C:\Users\jaket\Miniconda3\envs\wiwapmm
+
