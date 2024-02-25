@@ -1,5 +1,6 @@
 name: wiwapmm
 channels:
+- conda-forge
 - defaults
 dependencies:
 - jinja2=2.9.6=py36_0
@@ -16,5 +17,5 @@ dependencies:
   - cffi==1.11.0
   - weasyprint==0.40
   - windrose==1.6.3
-prefix: C:\Users\Jacob\Miniconda3\envs\wiwapmm
+prefix: C:\Users\jaket\Miniconda3\envs\wiwapmm
 
